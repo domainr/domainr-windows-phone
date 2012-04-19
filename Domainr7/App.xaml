@@ -1,0 +1,60 @@
+﻿<Application 
+    x:Class="Domainr7.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:scottconverters="clr-namespace:ScottIsAFool.WindowsPhone.Converters;assembly=ScottIsAFool.WindowsPhone"
+    xmlns:converters="clr-namespace:Domainr7.Converters"
+    xmlns:primitives="clr-namespace:System.Windows.Controls.Primitives;assembly=System.Windows"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    xmlns:vm="clr-namespace:Domainr7.ViewModel">
+
+    <Application.Resources>
+        <!--Global View Model Locator-->
+        <vm:ViewModelLocator x:Key="Locator"
+                             d:IsDataSource="True" />
+        
+        <sys:String x:Key="AppName">Domainr</sys:String>
+
+        <converters:AvailabilityToBrushConverter x:Key="AvailabilityToBrushConverter"/>
+        <converters:AvailabilityToBooleanConverter x:Key="AvailabilityToBooleanConverter"/>
+        <converters:AvailabilityToOpacityConverter x:Key="AvailabilityToOpacityConverter"/>
+        <converters:AvailabilityReplaceTLDConverter x:Key="AvailabilityReplaceTLDConverter"/>
+        <converters:AvailabilityVisibilityConverter x:Key="AvailabilityVisibilityConverter"/>
+        <converters:NullVisibilityConverter x:Key="NullVisibilityConverter"/>
+        <converters:AvailabilityStringFormat x:Key="AvailabilityStringFormat"/>
+
+        <scottconverters:StringCaseConverter x:Key="StringCaseConverter"/>
+
+        <Style x:Key="EmptyButtonStyle" TargetType="primitives:ButtonBase">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="primitives:ButtonBase">
+                        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              Content="{TemplateBinding Content}" 
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Application.Resources>
+
+    <Application.ApplicationLifetimeObjects>
+        <!--Required object that handles lifetime events for the application-->
+        <shell:PhoneApplicationService Launching="Application_Launching"
+                                       Closing="Application_Closing"
+                                       Activated="Application_Activated"
+                                       Deactivated="Application_Deactivated" />
+    </Application.ApplicationLifetimeObjects>
+
+</Application>

@@ -1,0 +1,148 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Domainr7.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+    xmlns:behaviours="clr-namespace:ScottIsAFool.WindowsPhone.Behaviours"
+    xmlns:scott="clr-namespace:ScottIsAFool.WindowsPhone.Controls;assembly=ScottIsAFool.WindowsPhone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape"
+    Orientation="Portrait"
+    mc:Ignorable="d"
+    d:DesignWidth="480"
+    d:DesignHeight="696"
+    shell:SystemTray.IsVisible="True"
+    toolkit:TiltEffect.IsTiltEnabled="True"
+    DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True"
+                                 IsVisible="{Binding IsVisible}"
+                                 Text="{Binding ProgressText}"/>
+    </shell:SystemTray.ProgressIndicator>
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <!--LayoutRoot contains the root grid where all other page content is placed-->
+	<Grid x:Name="LayoutRoot"
+	      Background="Transparent">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!--TitlePanel contains the name of the application and page title-->
+		<StackPanel x:Name="TitlePanel"
+		            Grid.Row="0"
+		            Margin="12,17,0,28">
+			<TextBlock x:Name="ApplicationTitle"
+			           Text="{Binding Source={StaticResource AppName}, Converter={StaticResource StringCaseConverter}, ConverterParameter=false}"
+			           Style="{StaticResource PhoneTextNormalStyle}"/>			
+		</StackPanel>
+
+		<!--ContentPanel - place additional content here-->
+		<Grid x:Name="ContentGrid"
+		      Grid.Row="1"
+              Margin="12,0,12,0">
+            <StackPanel Orientation="Vertical">
+                <toolkit:PhoneTextBox x:Name="txbxSearch"
+                                      Hint="Search using Domainr"
+                                      VerticalAlignment="Top"
+                                      Text="{Binding SearchTerm, Mode=TwoWay}"
+                                      ActionIcon="/Images/clearboxicon.png"
+                                      HidesActionItemWhenEmpty="True">
+                    <i:Interaction.Behaviors>
+                        <behaviours:UpdateTextBindingOnPropertyChanged/>
+                    </i:Interaction.Behaviors>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="ActionIconTapped">
+                            <command:EventToCommand Command="{Binding ClearSearchCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </toolkit:PhoneTextBox>
+                <scott:PhoneListBox Text="No items to display"
+                                    TextHorizontalAlignment="Center"
+                                    TextVerticalAlignment="Top"
+                                    TextStyle="{StaticResource PhoneTextTitle2Style}"
+                                    ItemsSource="{Binding SearchResults}"
+                                    Height="600">
+                    <scott:PhoneListBox.ItemTemplate>
+                        <DataTemplate>
+                            <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
+                                             NavigateUri="/Views/DomainDetails.xaml"
+                                             Command="{Binding Main.ViewDomainCommand, Source={StaticResource Locator}}"
+                                             CommandParameter="{Binding}"
+                                             HorizontalContentAlignment="Left"
+                                             IsEnabled="{Binding availability, Converter={StaticResource AvailabilityToBooleanConverter}}"
+                                             Height="80"
+                                             Opacity="{Binding availability, Converter={StaticResource AvailabilityToOpacityConverter}}">
+                                <StackPanel Orientation="Vertical"
+                                            Margin="0,0">                                    
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding subdomain}"
+                                                   Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding path}"
+                                                   Style="{StaticResource PhoneTextLargeStyle}"
+                                                   Margin="-10,0"
+                                                   Foreground="Gray"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="12,0">
+                                        <Rectangle Fill="{Binding availability, Converter={StaticResource AvailabilityToBrushConverter}}"
+                                                   HorizontalAlignment="Left"
+                                                   Height="20"
+                                                   Width="20"
+                                                   VerticalAlignment="Center"
+                                                   Visibility="{Binding availability, Converter={StaticResource AvailabilityVisibilityConverter}}"
+                                                   Margin="0,0,12,0"/>
+                                        <TextBlock Text="{Binding availability, Converter={StaticResource AvailabilityReplaceTLDConverter}}"
+                                                   Style="{StaticResource PhoneTextSubtleStyle}"
+                                                   Margin="0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </HyperlinkButton>
+                        </DataTemplate>
+                    </scott:PhoneListBox.ItemTemplate>
+                </scott:PhoneListBox>
+            </StackPanel>
+        </Grid>
+	</Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" 
+                              Mode="Minimized" 
+                              IsMenuEnabled="True">
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="about"
+                                              Click="ApplicationBarMenuItem_Click"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>

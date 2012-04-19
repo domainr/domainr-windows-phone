@@ -1,0 +1,172 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Domainr7.Views.DomainDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:scott="clr-namespace:ScottIsAFool.WindowsPhone.Controls;assembly=ScottIsAFool.WindowsPhone"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="480"
+    d:DesignHeight="696"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"
+    Orientation="Portrait"
+    shell:SystemTray.IsVisible="True"
+    toolkit:TiltEffect.IsTiltEnabled="True"
+    DataContext="{Binding Domain, Source={StaticResource Locator}}">
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="True"
+                                 IsVisible="{Binding IsVisible}"
+                                 Text="{Binding ProgressText}"/>
+    </shell:SystemTray.ProgressIndicator>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding PageLoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <Grid x:Name="LayoutRoot"
+          Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel"
+		            Grid.Row="0"
+		            Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle"
+			           Text="{Binding Source={StaticResource AppName}, Converter={StaticResource StringCaseConverter}, ConverterParameter=false}"
+			           Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding SelectedDomain.domain}"
+                       Style="{StaticResource PhoneTextTitle1Style}"
+                       Margin="9,-7,0,0"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel"
+              Grid.Row="1"
+              Margin="12,0,12,0">
+            <ScrollViewer>
+                <StackPanel Orientation="Vertical">
+                    
+                    <!-- Domain section -->
+                    <TextBlock Text="DOMAIN"
+                               Style="{StaticResource PhoneTextNormalStyle}" 
+                               FontSize="{StaticResource PhoneFontSizeExtraLarge}" 
+                               FontWeight="Bold"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="suggested domain and path"
+                                   Style="{StaticResource PhoneTextTitle2Style}"/>
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+							        DataContext="{Binding SelectedDomain}">
+                            <TextBlock Text="{Binding subdomain}"
+                                       Style="{StaticResource PhoneTextNormalStyle}"
+                                       Foreground="{StaticResource PhoneAccentBrush}"/>
+                            <TextBlock Text="{Binding path}"
+                                       Style="{StaticResource PhoneTextNormalStyle}"
+                                       Margin="-10,0"
+                                       Foreground="Gray"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <scott:HeaderAndDetail HeaderText="availability"
+                                           DetailText="{Binding SelectedDomain.availability, Converter={StaticResource AvailabilityStringFormat}}"/>
+                    
+                    <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
+                                     HorizontalContentAlignment="Left"
+                                     NavigateUri="/Views/Registrars.xaml"
+                                     IsEnabled="{Binding SelectedDomain.availability, Converter={StaticResource AvailabilityToBooleanConverter}, ConverterParameter=check}"
+                                     Opacity="{Binding SelectedDomain.availability, Converter={StaticResource AvailabilityToOpacityConverter}, ConverterParameter=check}">
+                        <scott:HeaderAndDetail HeaderText="register"
+                                               DetailText="tap to select a registrar"/>                        
+                    </HyperlinkButton>
+                    
+                    <!-- TLD Section -->
+                    <StackPanel Orientation="Vertical"
+                                Visibility="{Binding Domain.SelectedDomainInfo,Source={StaticResource Locator}, Converter={StaticResource NullVisibilityConverter}}"
+                                DataContext="{Binding SelectedDomainInfo.tld}"
+                                Margin="0,12">
+                        <TextBlock Text="TOP LEVEL DOMAIN"
+                                   Style="{StaticResource PhoneTextNormalStyle}" 
+                                   FontSize="{StaticResource PhoneFontSizeExtraLarge}" 
+                                   FontWeight="Bold"/>
+                        <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
+                                         HorizontalContentAlignment="Left"                                         
+                                         Command="{Binding Domain.NavigateToExternal, Source={StaticResource Locator}}"
+                                         CommandParameter="{Binding wikipedia_url}">
+                            <scott:HeaderAndDetail HeaderText="wikipedia"
+                                                   DetailText="{Binding wikipedia_url}"/>                            
+                        </HyperlinkButton>
+                        <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
+                                         HorizontalContentAlignment="Left"
+                                         Margin="0,12"
+                                         Command="{Binding Domain.NavigateToExternal, Source={StaticResource Locator}}"
+                                         CommandParameter="{Binding iana_url}">
+                            <scott:HeaderAndDetail HeaderText="iana"
+                                                   DetailText="{Binding iana_url}"/>
+                        </HyperlinkButton>
+                    </StackPanel>
+
+                    <!-- Tools section -->
+                    <StackPanel Orientation="Vertical"
+                                Visibility="{Binding Domain.SelectedDomainInfo, Source={StaticResource Locator}, Converter={StaticResource NullVisibilityConverter}}"
+                                DataContext="{Binding SelectedDomainInfo}"
+                                Margin="0,12">
+                        <TextBlock Text="TOOLS"
+                                   Style="{StaticResource PhoneTextNormalStyle}" 
+                                   FontSize="{StaticResource PhoneFontSizeExtraLarge}" 
+                                   FontWeight="Bold"/>
+                        <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
+                                         HorizontalContentAlignment="Left"
+                                         Command="{Binding Domain.NavigateToExternal, Source={StaticResource Locator}}"
+                                         CommandParameter="{Binding whois_url}">
+                            <scott:HeaderAndDetail HeaderText="whois"
+                                                   DetailText="{Binding whois_url}"/>
+                        </HyperlinkButton>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
+    <!-- Application Bar -->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Icons/appbar.share.rest.png" 
+                                            Text="share"
+                                            Click="ApplicationBarIconButton_Click"/>            
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
