@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Data;
-using Domainr7.Model;
+using DomainrSharp.WindowsPhone;
 
 namespace Domainr7.Converters
 {

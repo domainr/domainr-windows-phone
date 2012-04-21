@@ -2,11 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Net;
 using Domainr7.Model;
+using DomainrSharp.WindowsPhone;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
-using SharpGIS;
 
 namespace Domainr7.ViewModel
 {
@@ -24,6 +24,7 @@ namespace Domainr7.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        private DomainrSharpService domainr;
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -35,15 +36,16 @@ namespace Domainr7.ViewModel
                 // Code runs in Blend --> create design time data.
                 SearchResults.Add(new Result()
                 {
-                    availability = "available",
-                    subdomain = "ferr.et",
-                    domain = "ferr.et",
-                    path = "/land"
+                    Availability = "available",
+                    Subdomain = "ferr.et",
+                    Domain = "ferr.et",
+                    Path = "/land"
                 });
                      
             }
             else
             {
+                domainr = new DomainrSharpService();
                 WireMessages();
                 WireCommands();
             }
@@ -82,28 +84,25 @@ namespace Domainr7.ViewModel
             {
                 if (App.IsNetworkAvailable)
                 {
-                    WebClient client = new GZipWebClient();
                     IsVisible = true;
                     ProgressText = "Searching...";
-                    client.DownloadStringCompleted += (s, e) =>
+                    domainr.SearchCompleted += (s, e) =>
                     {
                         if (e.Error == null)
                         {
                             if (e.Result != null)
                             {
-                                SearchResults.Clear();
-                                var returnedSearches = JsonConvert.DeserializeObject<DomainrClass>(e.Result).results;
-                                returnedSearches.ForEach(search => SearchResults.Add(search));
+                                SearchResults.Clear();                                
+                                e.Result.Results.ForEach(search => SearchResults.Add(search));
                             }
                         }
                         else
                         {
-                            App.ShowMessage("Error", e.Error.InnerException.Message);
+                            App.ShowMessage("Error", e.Error.Message);
                         }
                         IsVisible = false;
                     };
-                    string url = string.Format(Constants.QueryUrl, SearchTerm);
-                    client.DownloadStringAsync(new Uri(url, UriKind.Absolute));
+                    domainr.SearchAsync(SearchTerm);
                 }
             }
         }

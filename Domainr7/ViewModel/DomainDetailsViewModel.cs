@@ -1,13 +1,14 @@
-﻿using GalaSoft.MvvmLight;
-using System;
-using GalaSoft.MvvmLight.Messaging;
-using Domainr7.Model;
-using GalaSoft.MvvmLight.Command;
-using SharpGIS;
-using System.Net;
-using Newtonsoft.Json;
-using Microsoft.Phone.Tasks;
+﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using Domainr7.Model;
+using DomainrSharp.WindowsPhone;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Phone.Tasks;
+using Newtonsoft.Json;
+using SharpGIS;
 
 namespace Domainr7.ViewModel
 {
@@ -25,6 +26,7 @@ namespace Domainr7.ViewModel
     /// </summary>
     public class DomainDetailsViewModel : ViewModelBase
     {
+        private DomainrSharpService domainr;
         private bool isLoaded = false;
         /// <summary>
         /// Initializes a new instance of the DomainDetailsViewModel class.
@@ -36,43 +38,45 @@ namespace Domainr7.ViewModel
                 // Code runs in Blend --> create design time data.
                 SelectedDomain = new Result()
                 {
-                    availability = "available",
-                    subdomain = "ferr.et",
-                    domain = "ferr.et",
-                    path = "/land",
-                    register_url= "http://register.com"
+                    Availability = "available",
+                    Subdomain = "ferr.et",
+                    Domain = "ferr.et",
+                    Path = "/land",
+                    RegisterUrl= "http://register.com"
                 };
 
                 SelectedDomainInfo = new DomainrInfo
                 {
-                    domain = "ferr.et",
-                    whois_url = "http://domai.nr/ferr.et/whois",
-                    tld = new Tld
+                    Domain = "ferr.et",
+                    WhoisUrl = "http://domai.nr/ferr.et/whois",
+                    Tld = new Tld
                     {
-                        domain = "et",
-                        wikipedia_url = "http://wikipedia.org/wiki/.et",
-                        iana_url = "http://www.iana.org/domains/root/db/et.html"
+                        Domain = "et",
+                        WikipediaUrl = "http://wikipedia.org/wiki/.et",
+                        IanaUrl = "http://www.iana.org/domains/root/db/et.html"
                     },
-                    availability = Constants.AvailabilityAvailable
+                    Availability = Constants.AvailabilityAvailable
                 };
                 List<Registrar> registrars = new List<Registrar>();
                 registrars.Add(new Registrar
                 {
-                    registrar = "101domain.com",
-                    name = "101domain.com",
-                    register_url = "http://domai.nr/liveside.net/register/101domain.com"
+                    RegistrarDomain = "101domain.com",
+                    Name = "101domain.com",
+                    RegisterUrl = "http://domai.nr/liveside.net/register/101domain.com"
                 });
                 registrars.Add(new Registrar
                 {
-                    registrar = "dotster.com",
-                    name = "Dotster",
-                    register_url = "http://domai.nr/liveside.net/register/dotster.com"
+                    RegistrarDomain = "dotster.com",
+                    Name = "Dotster",
+                    RegisterUrl = "http://domai.nr/liveside.net/register/dotster.com"
                 });
-                SelectedDomainInfo.registrars = registrars;
+                SelectedDomainInfo.Registrars = registrars;
             }
             else
             {
                 // Code runs "for real": Connect to service, etc...
+                domainr = new DomainrSharpService();
+
                 WireMessages();
                 WireCommands();
             }
@@ -88,25 +92,23 @@ namespace Domainr7.ViewModel
                     {
                         IsVisible = true;
                         ProgressText = "Filling in the gaps...";
-                        WebClient client = new GZipWebClient();
-                        client.DownloadStringCompleted += (s, e) =>
+                        domainr.InfoDownloadCompleted += (s, e) =>
                         {
                             if (e.Error == null)
                             {
                                 if (e.Result != null)
                                 {
-                                    SelectedDomainInfo = JsonConvert.DeserializeObject<DomainrInfo>(e.Result);
+                                    SelectedDomainInfo = e.Result;
                                     isLoaded = true;
                                 }
                             }
                             else
                             {
-                                App.ShowMessage("Error", e.Error.InnerException.Message);
+                                App.ShowMessage("Error", e.Error.Message);
                             }
                             IsVisible = false;
                         };
-                        string url = string.Format(Constants.InfoUrl, SelectedDomain.domain);
-                        client.DownloadStringAsync(new Uri(url, UriKind.Absolute));
+                        domainr.InfoDownloadAsync(SelectedDomain.Domain);
                     }
                 }
             });
@@ -137,18 +139,18 @@ namespace Domainr7.ViewModel
                         case "email":
                             new EmailComposeTask
                             {
-                                Subject = "Domainr: " + SelectedDomain.domain,
-                                Body = string.Format("Found on Domainr: \n\nhttp://domai.nr/{0}", SelectedDomain.domain)
+                                Subject = "Domainr: " + SelectedDomain.Domain,
+                                Body = string.Format("Found on Domainr: \n\nhttp://domai.nr/{0}", SelectedDomain.Domain)
                             }.Show();                                 
                             break;
                         case "social":
                             new ShareStatusTask
                             {
-                                Status = string.Format("Found a great domain ({0}) using http://domai.nr", SelectedDomain.domain)
+                                Status = string.Format("Found a great domain ({0}) using http://domai.nr", SelectedDomain.Domain)
                             }.Show();
                             break;
                         case "clipboard":
-                            System.Windows.Clipboard.SetText(string.Format("http://{0}", SelectedDomain.domain));
+                            System.Windows.Clipboard.SetText(string.Format("http://{0}", SelectedDomain.Domain));
                             break;
                     }
                 }

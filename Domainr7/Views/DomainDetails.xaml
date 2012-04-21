@@ -67,7 +67,7 @@
             <TextBlock x:Name="ApplicationTitle"
 			           Text="{Binding Source={StaticResource AppName}, Converter={StaticResource StringCaseConverter}, ConverterParameter=false}"
 			           Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="{Binding SelectedDomain.domain}"
+            <TextBlock Text="{Binding SelectedDomain.Domain}"
                        Style="{StaticResource PhoneTextTitle1Style}"
                        Margin="9,-7,0,0"/>
         </StackPanel>
@@ -90,10 +90,10 @@
                         <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center"
 							        DataContext="{Binding SelectedDomain}">
-                            <TextBlock Text="{Binding subdomain}"
+                            <TextBlock Text="{Binding Subdomain}"
                                        Style="{StaticResource PhoneTextNormalStyle}"
                                        Foreground="{StaticResource PhoneAccentBrush}"/>
-                            <TextBlock Text="{Binding path}"
+                            <TextBlock Text="{Binding Path}"
                                        Style="{StaticResource PhoneTextNormalStyle}"
                                        Margin="-10,0"
                                        Foreground="Gray"/>
@@ -101,13 +101,13 @@
                     </StackPanel>
                     
                     <scott:HeaderAndDetail HeaderText="availability"
-                                           DetailText="{Binding SelectedDomain.availability, Converter={StaticResource AvailabilityStringFormat}}"/>
+                                           DetailText="{Binding SelectedDomain.Availability, Converter={StaticResource AvailabilityStringFormat}}"/>
                     
                     <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
                                      HorizontalContentAlignment="Left"
                                      NavigateUri="/Views/Registrars.xaml"
-                                     IsEnabled="{Binding SelectedDomain.availability, Converter={StaticResource AvailabilityToBooleanConverter}, ConverterParameter=check}"
-                                     Opacity="{Binding SelectedDomain.availability, Converter={StaticResource AvailabilityToOpacityConverter}, ConverterParameter=check}">
+                                     IsEnabled="{Binding SelectedDomain.Availability, Converter={StaticResource AvailabilityToBooleanConverter}, ConverterParameter=check}"
+                                     Opacity="{Binding SelectedDomain.Availability, Converter={StaticResource AvailabilityToOpacityConverter}, ConverterParameter=check}">
                         <scott:HeaderAndDetail HeaderText="register"
                                                DetailText="tap to select a registrar"/>                        
                     </HyperlinkButton>
@@ -115,7 +115,7 @@
                     <!-- TLD Section -->
                     <StackPanel Orientation="Vertical"
                                 Visibility="{Binding Domain.SelectedDomainInfo,Source={StaticResource Locator}, Converter={StaticResource NullVisibilityConverter}}"
-                                DataContext="{Binding SelectedDomainInfo.tld}"
+                                DataContext="{Binding SelectedDomainInfo.Tld}"
                                 Margin="0,12">
                         <TextBlock Text="TOP LEVEL DOMAIN"
                                    Style="{StaticResource PhoneTextNormalStyle}" 
@@ -124,17 +124,17 @@
                         <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
                                          HorizontalContentAlignment="Left"                                         
                                          Command="{Binding Domain.NavigateToExternal, Source={StaticResource Locator}}"
-                                         CommandParameter="{Binding wikipedia_url}">
+                                         CommandParameter="{Binding WikipediaUrl}">
                             <scott:HeaderAndDetail HeaderText="wikipedia"
-                                                   DetailText="{Binding wikipedia_url}"/>                            
+                                                   DetailText="{Binding WikipediaUrl}"/>                            
                         </HyperlinkButton>
                         <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
                                          HorizontalContentAlignment="Left"
                                          Margin="0,12"
                                          Command="{Binding Domain.NavigateToExternal, Source={StaticResource Locator}}"
-                                         CommandParameter="{Binding iana_url}">
+                                         CommandParameter="{Binding IanaUrl}">
                             <scott:HeaderAndDetail HeaderText="iana"
-                                                   DetailText="{Binding iana_url}"/>
+                                                   DetailText="{Binding IanaUrl}"/>
                         </HyperlinkButton>
                     </StackPanel>
 
@@ -142,7 +142,7 @@
                     <StackPanel Orientation="Vertical"
                                 Visibility="{Binding Domain.SelectedDomainInfo, Source={StaticResource Locator}, Converter={StaticResource NullVisibilityConverter}}"
                                 DataContext="{Binding SelectedDomainInfo}"
-                                Margin="0,12">
+                                >
                         <TextBlock Text="TOOLS"
                                    Style="{StaticResource PhoneTextNormalStyle}" 
                                    FontSize="{StaticResource PhoneFontSizeExtraLarge}" 
@@ -150,9 +150,9 @@
                         <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
                                          HorizontalContentAlignment="Left"
                                          Command="{Binding Domain.NavigateToExternal, Source={StaticResource Locator}}"
-                                         CommandParameter="{Binding whois_url}">
+                                         CommandParameter="{Binding WhoisUrl}">
                             <scott:HeaderAndDetail HeaderText="whois"
-                                                   DetailText="{Binding whois_url}"/>
+                                                   DetailText="{Binding WhoisUrl}"/>
                         </HyperlinkButton>
                     </StackPanel>
                 </StackPanel>

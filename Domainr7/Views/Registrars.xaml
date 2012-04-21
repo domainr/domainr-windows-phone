@@ -57,7 +57,7 @@
             <TextBlock x:Name="ApplicationTitle"
 			           Text="{Binding Source={StaticResource AppName}, Converter={StaticResource StringCaseConverter}, ConverterParameter=false, StringFormat='\{0\} - REGISTER'}"
 			           Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="{Binding domain}"
+            <TextBlock Text="{Binding Domain}"
                        Style="{StaticResource PhoneTextTitle1Style}"
                        Margin="9,-7,0,0"/>
         </StackPanel>
@@ -70,16 +70,16 @@
                                 TextHorizontalAlignment="Left"
                                 TextVerticalAlignment="Top"
                                 TextStyle="{StaticResource PhoneTextTitle2Style}"
-                                ItemsSource="{Binding registrars}">
+                                ItemsSource="{Binding Registrars}">
                 <scott:PhoneListBox.ItemTemplate>
                     <DataTemplate>
                         <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
                                          HorizontalContentAlignment="Left"
                                          Margin="0,12"
                                          Command="{Binding Domain.NavigateToExternal, Source={StaticResource Locator}}"
-                                         CommandParameter="{Binding register_url}">
-                            <scott:HeaderAndDetail HeaderText="{Binding name}"
-                                                   DetailText="{Binding registrar}"
+                                         CommandParameter="{Binding RegisterUrl}">
+                            <scott:HeaderAndDetail HeaderText="{Binding Name}"
+                                                   DetailText="{Binding RegistrarDomain}"
                                                    DetailTextForeground="{StaticResource PhoneSubtleBrush}"/>                            
                         </HyperlinkButton>
                     </DataTemplate>

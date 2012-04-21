@@ -99,30 +99,30 @@
                                              Command="{Binding Main.ViewDomainCommand, Source={StaticResource Locator}}"
                                              CommandParameter="{Binding}"
                                              HorizontalContentAlignment="Left"
-                                             IsEnabled="{Binding availability, Converter={StaticResource AvailabilityToBooleanConverter}}"
+                                             IsEnabled="{Binding Availability, Converter={StaticResource AvailabilityToBooleanConverter}}"
                                              Height="80"
-                                             Opacity="{Binding availability, Converter={StaticResource AvailabilityToOpacityConverter}}">
+                                             Opacity="{Binding Availability, Converter={StaticResource AvailabilityToOpacityConverter}}">
                                 <StackPanel Orientation="Vertical"
                                             Margin="0,0">                                    
                                     <StackPanel Orientation="Horizontal"
                                                 VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding subdomain}"
+                                        <TextBlock Text="{Binding Subdomain}"
                                                    Style="{StaticResource PhoneTextLargeStyle}"/>
-                                        <TextBlock Text="{Binding path}"
+                                        <TextBlock Text="{Binding Path}"
                                                    Style="{StaticResource PhoneTextLargeStyle}"
                                                    Margin="-10,0"
                                                    Foreground="Gray"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal"
                                                 Margin="12,0">
-                                        <Rectangle Fill="{Binding availability, Converter={StaticResource AvailabilityToBrushConverter}}"
+                                        <Rectangle Fill="{Binding Availability, Converter={StaticResource AvailabilityToBrushConverter}}"
                                                    HorizontalAlignment="Left"
                                                    Height="20"
                                                    Width="20"
                                                    VerticalAlignment="Center"
-                                                   Visibility="{Binding availability, Converter={StaticResource AvailabilityVisibilityConverter}}"
+                                                   Visibility="{Binding Availability, Converter={StaticResource AvailabilityVisibilityConverter}}"
                                                    Margin="0,0,12,0"/>
-                                        <TextBlock Text="{Binding availability, Converter={StaticResource AvailabilityReplaceTLDConverter}}"
+                                        <TextBlock Text="{Binding Availability, Converter={StaticResource AvailabilityReplaceTLDConverter}}"
                                                    Style="{StaticResource PhoneTextSubtleStyle}"
                                                    Margin="0"/>
                                     </StackPanel>
