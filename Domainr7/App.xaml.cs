@@ -6,6 +6,7 @@ using Domainr7.ViewModel;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Net.NetworkInformation;
+using Domainr7.Model;
 
 namespace Domainr7
 {
@@ -90,12 +91,14 @@ namespace Domainr7
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            FlurryWP7SDK.Api.StartSession(Constants.FlurryAPIKey);
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            FlurryWP7SDK.Api.StartSession(Constants.FlurryAPIKey);
         }
 
         // Code to execute when the application is deactivated (sent to background)
@@ -119,6 +122,8 @@ namespace Domainr7
                 // A navigation has failed; break into the debugger
                 System.Diagnostics.Debugger.Break();
             }
+            FlurryWP7SDK.Api.LogError("Navigation", e.Exception);
+            e.Handled = true;
         }
 
         // Code to execute on Unhandled Exceptions
@@ -129,6 +134,8 @@ namespace Domainr7
                 // An unhandled exception has occurred; break into the debugger
                 System.Diagnostics.Debugger.Break();
             }
+            FlurryWP7SDK.Api.LogError("MainAppError", e.ExceptionObject);
+            e.Handled = true;
         }
 
         #region Phone application initialization

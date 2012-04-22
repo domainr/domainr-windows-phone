@@ -17,5 +17,7 @@ namespace Domainr7.Model
         public const string AvailabilityTLD = "tld";
         public const string AvailabilityAvailable = "available";
         public const string AvailabilityUnavailable = "unavailable";
+
+        public const string FlurryAPIKey = "1GNRE5L1JTM96K6DCWQX";
     }
 }

@@ -76,8 +76,8 @@
                         <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
                                          HorizontalContentAlignment="Left"
                                          Margin="0,12"
-                                         Command="{Binding Domain.NavigateToExternal, Source={StaticResource Locator}}"
-                                         CommandParameter="{Binding RegisterUrl}">
+                                         Command="{Binding Domain.NavigateToRegistrar, Source={StaticResource Locator}}"
+                                         CommandParameter="{Binding}">
                             <scott:HeaderAndDetail HeaderText="{Binding Name}"
                                                    DetailText="{Binding RegistrarDomain}"
                                                    DetailTextForeground="{StaticResource PhoneSubtleBrush}"/>                            

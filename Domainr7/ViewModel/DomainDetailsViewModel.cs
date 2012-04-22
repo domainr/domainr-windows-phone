@@ -113,13 +113,29 @@ namespace Domainr7.ViewModel
                 }
             });
 
-            NavigateToExternal = new RelayCommand<string>(link =>
+            NavigateToRegistrar = new RelayCommand<Registrar>(reg =>
             {
-                new WebBrowserTask
-                {
-                    Uri = new Uri(link, UriKind.Absolute)
-                }.Show();
+                // For analytical purposes, selected domain and chose registrar are logged
+                // This gives an indication on how useful users find domainr
+                List<FlurryWP7SDK.Models.Parameter> args = new List<FlurryWP7SDK.Models.Parameter>();
+                args.Add(new FlurryWP7SDK.Models.Parameter("Domain", SelectedDomain.Domain));
+                args.Add(new FlurryWP7SDK.Models.Parameter("Registrar", reg.Name));
+                args.Add(new FlurryWP7SDK.Models.Parameter("RegistrarDomain", reg.RegistrarDomain));
+
+                FlurryWP7SDK.Api.LogEvent("RegistrarTapped", args);
+                NavigateTo(reg.RegisterUrl);
             });
+
+            NavigateToExternal = new RelayCommand<string>(NavigateTo);
+            
+        }
+
+        private void NavigateTo(string link)
+        {
+            new WebBrowserTask
+            {
+                Uri = new Uri(link, UriKind.Absolute)
+            }.Show();
         }
 
         private void WireMessages()
@@ -162,6 +178,7 @@ namespace Domainr7.ViewModel
 
         public RelayCommand PageLoadedCommand { get; set; }
         public RelayCommand<string> NavigateToExternal { get; set; }
+        public RelayCommand<Registrar> NavigateToRegistrar { get; set; }
 
         public bool IsVisible { get; set; }
         public string ProgressText { get; set; }
