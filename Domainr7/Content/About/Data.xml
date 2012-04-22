@@ -64,7 +64,7 @@
                    HorizontalAlignment="Stretch"
                    VerticalAlignment="Top"/>
     </Item>
-    <Item Title="version history"
+    <Item Title="changelog"
           Type="text">
       1.0.0.0
       This is the initial public version.      
