@@ -57,11 +57,6 @@
     <!-- The Title attribute defines the title of the pivot item -->
     <!-- Each Item can be a remote item (fetched from a Uri) or a local item (using its content), or both (local content is the fallback value if fetching the network content fails) -->
     <!-- Supported types are "text" and "xaml", where text is nicely formatted automatically, and XAML is handled by the built-in XamlReader -->
-    <Item Title="history"
-          Type="text">
-      1.0.0.0
-      This is the initial public version.      
-    </Item>
     <Item Title="built by"
           Type="xaml">
       <scott:Scott xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -69,5 +64,11 @@
                    HorizontalAlignment="Stretch"
                    VerticalAlignment="Top"/>
     </Item>
+    <Item Title="version history"
+          Type="text">
+      1.0.0.0
+      This is the initial public version.      
+    </Item>
+    
   </Items>
 </About>
