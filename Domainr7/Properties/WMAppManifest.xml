@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{3614dde3-39aa-4c88-b767-c00112e73047}" Title="Domainr" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="nb.io" Description="Search using Domai.nr to find your perfect domain name" Publisher="nb.io">
+  <App xmlns="" ProductID="{3614dde3-39aa-4c88-b767-c00112e73047}" Title="Domainr" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="nb.io" Description="Find your perfect domain name with Domainr - worldwide domain search." Publisher="nb.io, LLC">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
