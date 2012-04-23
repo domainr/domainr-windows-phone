@@ -84,31 +84,14 @@
                                Style="{StaticResource PhoneTextNormalStyle}" 
                                FontSize="{StaticResource PhoneFontSizeExtraLarge}" 
                                FontWeight="Bold"/>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="suggested domain and path"
-                                   Style="{StaticResource PhoneTextTitle2Style}"/>
-                        <StackPanel Orientation="Horizontal"
-                                    VerticalAlignment="Center"
-							        DataContext="{Binding SelectedDomain}">
-                            <TextBlock Text="{Binding Subdomain}"
-                                       Style="{StaticResource PhoneTextNormalStyle}"
-                                       Foreground="{StaticResource PhoneAccentBrush}"/>
-                            <TextBlock Text="{Binding Path}"
-                                       Style="{StaticResource PhoneTextNormalStyle}"
-                                       Margin="-10,0"
-                                       Foreground="Gray"/>
-                        </StackPanel>
-                    </StackPanel>
                     
                     <scott:HeaderAndDetail HeaderText="availability"
                                            DetailText="{Binding SelectedDomain.Availability, Converter={StaticResource AvailabilityStringFormat}}"/>
                     
                     <HyperlinkButton Style="{StaticResource EmptyButtonStyle}"
                                      HorizontalContentAlignment="Left"
-                                     NavigateUri="/Views/Registrars.xaml"
-                                     IsEnabled="{Binding SelectedDomain.Availability, Converter={StaticResource AvailabilityToBooleanConverter}, ConverterParameter=check}"
-                                     Opacity="{Binding SelectedDomain.Availability, Converter={StaticResource AvailabilityToOpacityConverter}, ConverterParameter=check}">
-                        <scott:HeaderAndDetail HeaderText="register"
+                                     NavigateUri="/Views/Registrars.xaml">
+                        <scott:HeaderAndDetail HeaderText="{Binding SelectedDomain.Availability, Converter={StaticResource AvailabilityRegistrarConverter}}"
                                                DetailText="tap to select a registrar"/>                        
                     </HyperlinkButton>
                     

@@ -20,16 +20,16 @@ namespace Domainr7.Converters
                     color = Colors.Yellow;
                     break;
                 case Constants.AvailabilityTaken:
-                    color = Colors.Red;
+                    color = Colors.Transparent;
                     break;
                 case Constants.AvailabilityUnavailable:
-                    color = Colors.Gray;
+                    color = Colors.Transparent;
                     break;
                 case Constants.AvailabilityTLD:
                     color = Colors.Transparent;
                     break;
                 default:
-                    color = Colors.Gray;
+                    color = Colors.Transparent;
                     break;
             }
             return new SolidColorBrush(color);

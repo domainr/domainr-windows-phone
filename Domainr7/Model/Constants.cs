@@ -5,6 +5,7 @@ namespace Domainr7.Model
     {
         public static string QueryUrl = "http://domai.nr/api/json/search?q={0}";
         public static string InfoUrl = "http://domai.nr/api/json/info?q={0}";
+        public static string DomainrAppId = "windowsphone";
 
         // Messaging
         public static string DoSearchCommand = "DoTheSearchNowBruv";

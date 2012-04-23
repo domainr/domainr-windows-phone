@@ -1,11 +1,10 @@
-﻿using Microsoft.Phone.Controls;
+﻿using System;
 using System.Reactive.Linq;
-using System.Reactive;
 using System.Windows.Controls;
-using System;
-using ReactiveUI;
-using GalaSoft.MvvmLight.Messaging;
 using Domainr7.Model;
+using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Phone.Controls;
+using ReactiveUI;
 
 namespace Domainr7
 {
@@ -15,6 +14,7 @@ namespace Domainr7
         public MainPage()
         {
             InitializeComponent();
+            Loaded += (s, e) => { if (string.IsNullOrEmpty(txbxSearch.Text)) txbxSearch.Focus(); };
 
             // Using Rx, we just want the last TextChangedEventHandler where there is a pause of 1 second,
             // then send it to the viewmodel.

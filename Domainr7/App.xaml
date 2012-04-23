@@ -27,6 +27,7 @@
         <converters:AvailabilityVisibilityConverter x:Key="AvailabilityVisibilityConverter"/>
         <converters:NullVisibilityConverter x:Key="NullVisibilityConverter"/>
         <converters:AvailabilityStringFormat x:Key="AvailabilityStringFormat"/>
+        <converters:AvailabilityRegistrarConverter x:Key="AvailabilityRegistrarConverter"/>
 
         <scottconverters:StringCaseConverter x:Key="StringCaseConverter"/>
 

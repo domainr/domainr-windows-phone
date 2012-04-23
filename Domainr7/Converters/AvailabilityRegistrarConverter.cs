@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Data;
 using Domainr7.Model;
 
 namespace Domainr7.Converters
 {
-    public class AvailabilityVisibilityConverter : IValueConverter
+    public class AvailabilityRegistrarConverter : IValueConverter
     {
 
         #region IValueConverter Members
@@ -13,7 +12,15 @@ namespace Domainr7.Converters
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             string availability = (string)value;
-            return (availability.Equals(Constants.AvailabilityTLD) || availability.Equals(Constants.AvailabilityTaken) || availability.Equals(Constants.AvailabilityUnavailable)) ? Visibility.Collapsed : Visibility.Visible;
+            if (availability.Equals(Constants.AvailabilityAvailable) ||
+                availability.Equals(Constants.AvailabilityMaybe))
+            {
+                return "register";
+            }
+            else
+            {
+                return "domain for sale?";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

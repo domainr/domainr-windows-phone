@@ -75,7 +75,7 @@ namespace Domainr7.ViewModel
             else
             {
                 // Code runs "for real": Connect to service, etc...
-                domainr = new DomainrSharpService();
+                domainr = new DomainrSharpService(Constants.DomainrAppId);
 
                 WireMessages();
                 WireCommands();

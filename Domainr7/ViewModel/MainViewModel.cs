@@ -45,7 +45,7 @@ namespace Domainr7.ViewModel
             }
             else
             {
-                domainr = new DomainrSharpService();
+                domainr = new DomainrSharpService(Constants.DomainrAppId);
                 WireMessages();
                 WireCommands();
             }

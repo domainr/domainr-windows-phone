@@ -55,8 +55,9 @@
     <Reference Include="Coding4Fun.Phone.Site.Controls">
       <HintPath>..\packages\coding4fun\Coding4Fun.Phone.Site.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="DomainrSharp.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DomainrSharp.1.0.0\lib\sl4-wp71\DomainrSharp.WindowsPhone.dll</HintPath>
+    <Reference Include="DomainrSharp.WindowsPhone, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DomainrSharp.1.0.1\lib\sl4-wp71\DomainrSharp.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="FlurryWP7SDK">
       <HintPath>..\packages\Flurry\FlurryWP7SDK.dll</HintPath>
@@ -117,6 +118,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Behaviours\OnTextPropertyChangedBehaviour.cs" />
+    <Compile Include="Converters\AvailabilityRegistrarConverter.cs" />
     <Compile Include="Converters\AvailabilityReplaceTLDConverter.cs" />
     <Compile Include="Converters\AvailabilityStringFormat.cs" />
     <Compile Include="Converters\AvailabilityToBooleanConverter.cs" />

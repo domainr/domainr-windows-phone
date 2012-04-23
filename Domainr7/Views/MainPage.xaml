@@ -71,8 +71,7 @@
 		      Grid.Row="1"
               Margin="12,0,12,0">
             <StackPanel Orientation="Vertical">
-                <toolkit:PhoneTextBox x:Name="txbxSearch"
-                                      Hint="Search using Domainr"
+                <toolkit:PhoneTextBox x:Name="txbxSearch"                                      
                                       VerticalAlignment="Top"
                                       Text="{Binding SearchTerm, Mode=TwoWay}"
                                       ActionIcon="/Images/clearboxicon.png"
@@ -86,8 +85,8 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </toolkit:PhoneTextBox>
-                <scott:PhoneListBox Text="No items to display"
-                                    TextHorizontalAlignment="Center"
+                <scott:PhoneListBox Text="Search using Domainr"
+                                    TextHorizontalAlignment="Left"
                                     TextVerticalAlignment="Top"
                                     TextStyle="{StaticResource PhoneTextTitle2Style}"
                                     ItemsSource="{Binding SearchResults}"
@@ -102,8 +101,16 @@
                                              IsEnabled="{Binding Availability, Converter={StaticResource AvailabilityToBooleanConverter}}"
                                              Height="80"
                                              Opacity="{Binding Availability, Converter={StaticResource AvailabilityToOpacityConverter}}">
-                                <StackPanel Orientation="Vertical"
-                                            Margin="0,0">                                    
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,0"> 
+                                	<Rectangle Fill="{Binding Availability, Converter={StaticResource AvailabilityToBrushConverter}}"
+                                                   HorizontalAlignment="Left"
+                                                   Height="60"
+                                                   Width="10"
+                                                   VerticalAlignment="Center"/>
+                                                   <!--Visibility="{Binding Availability, Converter={StaticResource AvailabilityVisibilityConverter}}"/>     -->
+                                	<StackPanel Orientation="Vertical"
+												Height="80">                                		  
                                     <StackPanel Orientation="Horizontal"
                                                 VerticalAlignment="Center">
                                         <TextBlock Text="{Binding Subdomain}"
@@ -115,16 +122,11 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal"
                                                 Margin="12,0">
-                                        <Rectangle Fill="{Binding Availability, Converter={StaticResource AvailabilityToBrushConverter}}"
-                                                   HorizontalAlignment="Left"
-                                                   Height="20"
-                                                   Width="20"
-                                                   VerticalAlignment="Center"
-                                                   Visibility="{Binding Availability, Converter={StaticResource AvailabilityVisibilityConverter}}"
-                                                   Margin="0,0,12,0"/>
+                                        
                                         <TextBlock Text="{Binding Availability, Converter={StaticResource AvailabilityReplaceTLDConverter}}"
                                                    Style="{StaticResource PhoneTextSubtleStyle}"
                                                    Margin="0"/>
+												   </StackPanel>                     
                                     </StackPanel>
                                 </StackPanel>
                             </HyperlinkButton>
