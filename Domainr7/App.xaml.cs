@@ -7,6 +7,10 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Net.NetworkInformation;
 using Domainr7.Model;
+using System.Windows.Resources;
+using System.IO;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace Domainr7
 {
@@ -46,6 +50,8 @@ namespace Domainr7
             }
         }
 
+        private static string FlurryApiKey { get; set; }
+
         // Easy access to the root frame
         public PhoneApplicationFrame RootFrame
         {
@@ -64,6 +70,8 @@ namespace Domainr7
 
             // Phone-specific initialization
             InitializePhoneApplication();
+
+            SetFlurryApiKey();
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
@@ -87,18 +95,47 @@ namespace Domainr7
 
         }
 
+        private void SetFlurryApiKey()
+        {
+            StreamResourceInfo sri = Application.GetResourceStream(new Uri("FlurryConfig.xml", UriKind.Relative));
+            if (sri == null)
+            {
+                FlurryApiKey = "NoKeyFound";
+            }
+            else
+            {
+                try
+                {
+                    XDocument doc = XDocument.Load(sri.Stream);
+                    string key = doc.Descendants("ApiKey").FirstOrDefault().Value;
+                    if (string.IsNullOrEmpty(key))
+                    {
+                        FlurryApiKey = "NoKeyFound";
+                    }
+                    else
+                    {
+                        FlurryApiKey = key;
+                    }
+                }
+                catch
+                {
+                    FlurryApiKey = "NoKeyFound";
+                }
+            }
+        }
+
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            FlurryWP7SDK.Api.StartSession(Constants.FlurryAPIKey);
+            FlurryWP7SDK.Api.StartSession(FlurryApiKey);
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            FlurryWP7SDK.Api.StartSession(Constants.FlurryAPIKey);
+            FlurryWP7SDK.Api.StartSession(FlurryApiKey);
         }
 
         // Code to execute when the application is deactivated (sent to background)

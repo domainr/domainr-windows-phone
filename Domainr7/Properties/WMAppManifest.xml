@@ -16,7 +16,7 @@
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">BackgroundIcon.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>Domainr</Title>
+          <Title></Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

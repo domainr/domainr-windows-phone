@@ -48,12 +48,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Coding4Fun.Phone.Controls, Version=1.5.5.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Coding4Fun.Phone.Controls.Toolkit">
-      <HintPath>..\packages\coding4fun\Coding4Fun.Phone.Controls.Toolkit.dll</HintPath>
+    <Reference Include="Coding4Fun.Phone.Controls, Version=1.5.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Coding4Fun.Phone.Controls.Complete.1.5.6\lib\sl4-windowsphone71\Coding4Fun.Phone.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Coding4Fun.Phone.Site.Controls">
-      <HintPath>..\packages\coding4fun\Coding4Fun.Phone.Site.Controls.dll</HintPath>
+    <Reference Include="Coding4Fun.Phone.Controls.Toolkit, Version=1.5.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Coding4Fun.Phone.Controls.Complete.1.5.6\lib\sl4-windowsphone71\Coding4Fun.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="DomainrSharp.WindowsPhone, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -73,8 +74,8 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.4.5.3\lib\sl4-windowsphone71\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PhoneFlipMenuControl">
-      <HintPath>..\packages\PhoneFlipMenu\PhoneFlipMenuControl.dll</HintPath>
+    <Reference Include="PhoneFlipMenuControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PhoneFlipMenu.1.0.0\lib\sl4-wp71\PhoneFlipMenuControl.dll</HintPath>
     </Reference>
     <Reference Include="ReactiveUI.Blend_WP7">
       <HintPath>..\packages\reactiveui-xaml.2.5.2.0\lib\SL3-WP\ReactiveUI.Blend_WP7.dll</HintPath>
@@ -106,6 +107,7 @@
     <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.XPath, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ScottIsAFool.WindowsPhone.1.0.7.0\lib\System.Xml.XPath.dll</HintPath>
     </Reference>
@@ -173,6 +175,7 @@
     <Content Include="Content\About\Data.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FlurryConfig.xml" />
     <Content Include="Icons\appbar.share.rest.png" />
     <Content Include="Images\clearboxicon.png" />
     <Content Include="SplashScreenImage.jpg">
