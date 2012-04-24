@@ -175,7 +175,9 @@
     <Content Include="Content\About\Data.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="FlurryConfig.xml" />
+    <Content Include="FlurryConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Icons\appbar.share.rest.png" />
     <Content Include="Images\clearboxicon.png" />
     <Content Include="SplashScreenImage.jpg">
