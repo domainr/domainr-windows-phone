@@ -1,7 +1,7 @@
-﻿using Domainr7.Model;
+﻿using Coding4Fun.Toolkit.Controls;
+using Domainr7.Model;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
-using ScottIsAFool.WindowsPhone.Tools;
 
 namespace Domainr7.Views
 {
@@ -20,16 +20,9 @@ namespace Domainr7.Views
 
         private void ApplicationBarIconButton_Click(object sender, System.EventArgs e)
         {
-            new PhoneFlipMenu(new PhoneFlipMenuAction("share by email", () =>
-            {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("email", Constants.ShareActionCommand));
-            }), new PhoneFlipMenuAction("share to social networks", () =>
-            {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("social", Constants.ShareActionCommand));
-            }), new PhoneFlipMenuAction("copy url to clipboard", () =>
-            {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("clipboard", Constants.ShareActionCommand));
-            })).Show();
+            new AppBarPrompt(new AppBarPromptAction("share by email", () => Messenger.Default.Send(new NotificationMessage("email", Constants.ShareActionCommand))), 
+                new AppBarPromptAction("share to social networks", () => Messenger.Default.Send(new NotificationMessage("social", Constants.ShareActionCommand))), 
+                new AppBarPromptAction("copy url to clipboard", () => Messenger.Default.Send(new NotificationMessage("clipboard", Constants.ShareActionCommand)))).Show();
         }
     }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>ScottIsAFool.WindowsPhone</id>
+    <version>1.0.11.0</version>
+    <title>ScottIsAFool.WindowsPhone</title>
+    <authors>ScottIsAFool</authors>
+    <owners>ScottIsAFool</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Description</description>
+    <copyright>Copyright © Scott Lovegrove 2011</copyright>
+    <dependencies>
+      <dependency id="WPtoolkit" version="4.2012.10.30" />
+    </dependencies>
+    <references>
+      <reference file="ScottIsAFool.WindowsPhone.dll" />
+    </references>
+  </metadata>
+</package>

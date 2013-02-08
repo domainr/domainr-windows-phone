@@ -1,4 +1,4 @@
-Domain Finder v1.0
+Domain Finder v2.0
 
 WHAT IS IT?
 Domain Finder lets you search http://domai.nr for a domain based on your search criteria. It will let you then go to one of the available registrars and register it. Domain Finder will also tell you if a domain is taken or available so you know straight away whether the domain you want is yours for the taking.

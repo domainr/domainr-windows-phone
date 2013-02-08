@@ -57,19 +57,21 @@ namespace Domainr7.ViewModel
                     },
                     Availability = Constants.AvailabilityAvailable
                 };
-                List<Registrar> registrars = new List<Registrar>();
-                registrars.Add(new Registrar
-                {
-                    RegistrarDomain = "101domain.com",
-                    Name = "101domain.com",
-                    RegisterUrl = "http://domai.nr/liveside.net/register/101domain.com"
-                });
-                registrars.Add(new Registrar
-                {
-                    RegistrarDomain = "dotster.com",
-                    Name = "Dotster",
-                    RegisterUrl = "http://domai.nr/liveside.net/register/dotster.com"
-                });
+                var registrars = new List<Registrar>
+                                     {
+                                         new Registrar
+                                             {
+                                                 RegistrarDomain = "101domain.com",
+                                                 Name = "101domain.com",
+                                                 RegisterUrl = "http://domai.nr/liveside.net/register/101domain.com"
+                                             },
+                                         new Registrar
+                                             {
+                                                 RegistrarDomain = "dotster.com",
+                                                 Name = "Dotster",
+                                                 RegisterUrl = "http://domai.nr/liveside.net/register/dotster.com"
+                                             }
+                                     };
                 SelectedDomainInfo.Registrars = registrars;
             }
             else
@@ -117,12 +119,14 @@ namespace Domainr7.ViewModel
             {
                 // For analytical purposes, selected domain and chose registrar are logged
                 // This gives an indication on how useful users find domainr
-                List<FlurryWP7SDK.Models.Parameter> args = new List<FlurryWP7SDK.Models.Parameter>();
-                args.Add(new FlurryWP7SDK.Models.Parameter("Domain", SelectedDomain.Domain));
-                args.Add(new FlurryWP7SDK.Models.Parameter("Registrar", reg.Name));
-                args.Add(new FlurryWP7SDK.Models.Parameter("RegistrarDomain", reg.RegistrarDomain));
+                var args = new List<FlurryWP8SDK.Models.Parameter>
+                               {
+                                   new FlurryWP8SDK.Models.Parameter("Domain", SelectedDomain.Domain),
+                                   new FlurryWP8SDK.Models.Parameter("Registrar", reg.Name),
+                                   new FlurryWP8SDK.Models.Parameter("RegistrarDomain", reg.RegistrarDomain)
+                               };
 
-                FlurryWP7SDK.Api.LogEvent("RegistrarTapped", args);
+                FlurryWP8SDK.Api.LogEvent("RegistrarTapped", args);
                 NavigateTo(reg.RegisterUrl);
             });
 
@@ -149,7 +153,7 @@ namespace Domainr7.ViewModel
                 }
                 if (m.Notification.Equals(Constants.ShareActionCommand))
                 {
-                    string command = (string)m.Sender;
+                    var command = (string)m.Sender;
                     switch (command)
                     {
                         case "email":

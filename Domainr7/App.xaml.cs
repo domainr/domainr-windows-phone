@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Navigation;
-using Coding4Fun.Phone.Controls;
+using Coding4Fun.Toolkit.Controls;
 using Domainr7.ViewModel;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Microsoft.Phone.Net.NetworkInformation;
-using Domainr7.Model;
 using System.Windows.Resources;
-using System.IO;
 using System.Xml.Linq;
 using System.Linq;
+using NetworkInterface = System.Net.NetworkInformation.NetworkInterface;
 
 namespace Domainr7
 {
@@ -26,14 +24,14 @@ namespace Domainr7
 
         public static void ShowMessage(string Title, string Message, Action action)
         {
-            ToastPrompt _prompt = new ToastPrompt
+            var _prompt = new ToastPrompt
             {
                 Title = Title,
                 Message = Message
             };
 
             if (action != null)
-                _prompt.Tap += (s, e) => { action(); };
+                _prompt.Tap += (s, e) => action();
             _prompt.Show();
         }
 
@@ -128,14 +126,14 @@ namespace Domainr7
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            FlurryWP7SDK.Api.StartSession(FlurryApiKey);
+            FlurryWP8SDK.Api.StartSession(FlurryApiKey);
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            FlurryWP7SDK.Api.StartSession(FlurryApiKey);
+            FlurryWP8SDK.Api.StartSession(FlurryApiKey);
         }
 
         // Code to execute when the application is deactivated (sent to background)
@@ -159,7 +157,7 @@ namespace Domainr7
                 // A navigation has failed; break into the debugger
                 System.Diagnostics.Debugger.Break();
             }
-            FlurryWP7SDK.Api.LogError("Navigation", e.Exception);
+            FlurryWP8SDK.Api.LogError("Navigation", e.Exception);
             e.Handled = true;
         }
 
@@ -171,7 +169,7 @@ namespace Domainr7
                 // An unhandled exception has occurred; break into the debugger
                 System.Diagnostics.Debugger.Break();
             }
-            FlurryWP7SDK.Api.LogError("MainAppError", e.ExceptionObject);
+            FlurryWP8SDK.Api.LogError("MainAppError", e.ExceptionObject);
             e.Handled = true;
         }
 
