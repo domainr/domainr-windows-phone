@@ -48,7 +48,7 @@ namespace Domainr7.ViewModel
                 SelectedDomainInfo = new DomainrInfo
                 {
                     Domain = "ferr.et",
-                    WhoisUrl = "http://domai.nr/ferr.et/whois",
+                    WhoisUrl = "https://domainr.com/ferr.et/whois",
                     Tld = new Tld
                     {
                         Domain = "et",
@@ -63,13 +63,13 @@ namespace Domainr7.ViewModel
                                              {
                                                  RegistrarDomain = "101domain.com",
                                                  Name = "101domain.com",
-                                                 RegisterUrl = "http://domai.nr/liveside.net/register/101domain.com"
+                                                 RegisterUrl = "https://domainr.com/liveside.net/register/101domain.com"
                                              },
                                          new Registrar
                                              {
                                                  RegistrarDomain = "dotster.com",
                                                  Name = "Dotster",
-                                                 RegisterUrl = "http://domai.nr/liveside.net/register/dotster.com"
+                                                 RegisterUrl = "https://domainr.com/liveside.net/register/dotster.com"
                                              }
                                      };
                 SelectedDomainInfo.Registrars = registrars;
@@ -160,13 +160,13 @@ namespace Domainr7.ViewModel
                             new EmailComposeTask
                             {
                                 Subject = "Domainr: " + SelectedDomain.Domain,
-                                Body = string.Format("Found on Domainr: \n\nhttp://domai.nr/{0}", SelectedDomain.Domain)
+                                Body = string.Format("Found on Domainr: \n\nhttps://domainr.com/{0}", SelectedDomain.Domain)
                             }.Show();                                 
                             break;
                         case "social":
                             new ShareStatusTask
                             {
-                                Status = string.Format("Found a great domain ({0}) using http://domai.nr", SelectedDomain.Domain)
+                                Status = string.Format("Found a great domain ({0}) using https://domainr.com", SelectedDomain.Domain)
                             }.Show();
                             break;
                         case "clipboard":
