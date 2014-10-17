@@ -3,8 +3,8 @@ namespace Domainr7.Model
 {
     public static class Constants
     {
-        public static string QueryUrl = "http://domai.nr/api/json/search?q={0}";
-        public static string InfoUrl = "http://domai.nr/api/json/info?q={0}";
+        public static string QueryUrl = "https://domainr.com/api/json/search?q={0}";
+        public static string InfoUrl = "https://domainr.com/api/json/info?q={0}";
         public static string DomainrAppId = "windowsphone";
 
         // Messaging
