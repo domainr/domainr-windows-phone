@@ -5,7 +5,7 @@ namespace Domainr7.Model
     {
         public static string QueryUrl = "https://api.domainr.com/v1/api/json/search?q={0}";
         public static string InfoUrl = "https://api.domainr.com/v1/api/json/info?q={0}";
-        public static string DomainrAppId = "windowsphone";
+        public static string DomainrAppId = "{your-mashape-key-or-client_id}";
 
         // Messaging
         public static string DoSearchCommand = "DoTheSearchNowBruv";
